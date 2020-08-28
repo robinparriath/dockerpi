@@ -27,7 +27,7 @@ This is not just a Raspian Docker image, it's a full ARM based Raspberry Pi virt
 docker run -it lukechilds/dockerpi
 ```
 
-By default all filesystem changes will lost on shutdown. You can persist filesystem changes between reboots by mounting the `/sdcard` volume on your host:
+By default all filesystem changes will be lost on shutdown. You can persist filesystem changes between reboots by mounting the `/sdcard` volume on your host:
 
 ```
 docker run -it -v $HOME/.dockerpi:/sdcard lukechilds/dockerpi
@@ -47,6 +47,21 @@ If you only want to mount your own image, you can download a much slimmer VM onl
 ```
 docker run -it -v /2019-09-26-raspbian-buster-lite.img:/sdcard/filesystem.img lukechilds/dockerpi:vm
 ```
+
+## Which machines are supported?
+
+By default a Raspberry Pi 1 is virtualised, however experimental support has been added for Pi 2 and Pi 3 machines.
+
+You can specify a machine by passing the name as a CLI argument:
+
+```
+docker run -it lukechilds/dockerpi pi1
+docker run -it lukechilds/dockerpi pi2
+docker run -it lukechilds/dockerpi pi3
+```
+
+> **Note:** Pi 2 and Pi 3 support is currently experimental. Networking doesn't work and QEMU hangs once the machines are powered down requiring you to `docker kill` the container. See [#4](https://github.com/lukechilds/dockerpi/pull/4) for details.
+
 
 ## Wait, what?
 
